@@ -1,4 +1,5 @@
 from fastapi import FastAPI, HTTPException, Depends, status
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Annotated
 import models
@@ -21,6 +22,14 @@ def get_db():
                 db.close()
 
 db_dependency = Annotated[Session, Depends(get_db)]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"], 
+    allow_credentials=True,
+    allow_methods=["GET", "POST", "PUT", "DELETE"],
+    allow_headers=["*"],
+)
 
 
 @app.post("/nuevo-proyecto", status_code=status.HTTP_201_CREATED)
