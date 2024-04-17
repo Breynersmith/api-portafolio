@@ -10,7 +10,7 @@ db_port = os.getenv("DB_PORT")
 URL_DB = f"mysql+pymysql://{db_user}:@{db_host}:{db_port}/portafolio"
 
 
-engine = create_engine(URL_DB)
+engine = create_engine(URL_DB, pool_pre_ping=True)
 
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
