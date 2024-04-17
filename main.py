@@ -51,3 +51,6 @@ async def obtener_proyectos(db:db_dependency):
 @app.get("/")
 async def root():
         return {"message": "bienvenido a mi api FastAPI"}
+
+if __name__ == "__main__":
+    uvicorn.run(app, host=HOST, port=os.getenv("PORT", 10000))
