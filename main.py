@@ -6,9 +6,6 @@ from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 import os
 import uvicorn
-from dotenv import load_dotenv
-
-load_dotenv()
 
 
 app = FastAPI()
@@ -51,6 +48,3 @@ async def obtener_proyectos(db:db_dependency):
                 return proyectos
         except Exception as e:
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
-
-if __name__ == "__main__":
-    uvicorn.run('main:app', host= HOST, port= PORT, reload=True)
