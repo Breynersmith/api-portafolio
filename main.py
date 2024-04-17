@@ -1,5 +1,4 @@
 from fastapi import FastAPI, HTTPException, Depends, status
-from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import Annotated
 import models
@@ -30,14 +29,10 @@ def get_db():
 
 db_dependency = Annotated[Session, Depends(get_db)]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"], 
-    allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE"],
-    allow_headers=["*"],
-)
 
+
+PORT = int(os.environ.get("PORT", 8000))
+HOST = '0.0.0.0'
 
 @app.post("/nuevo-proyecto", status_code=status.HTTP_201_CREATED)
 async def agregar_proyecto(proyecto: Proyecto, db:db_dependency):
@@ -49,8 +44,13 @@ async def agregar_proyecto(proyecto: Proyecto, db:db_dependency):
         except Exception as e:
                 raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
-PORT = int(os.environ.get("PORT", 8000))
-HOST = '0.0.0.0'
+@app.get("/proyectos")
+async def obtener_proyectos(db:db_dependency):
+        try:
+                proyectos = db.query(models.proyecto).all()
+                return proyectos
+        except Exception as e:
+                raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail=str(e))
 
 if __name__ == "__main__":
     uvicorn.run('main:app', host= HOST, port= PORT, reload=True)
