@@ -4,11 +4,10 @@ from sqlalchemy.ext.declarative import declarative_base
 import os
 
 db_user = os.getenv("DB_USER")
-db_password = os.getenv("DB_PASSWORD")
 db_host = os.getenv("DB_HOST")
 db_port = os.getenv("DB_PORT")
 
-URL_DB = f"mysql+pymysql://{db_user}:{db_password}@{db_host}:{db_port}/portafolio"
+URL_DB = f"mysql+pymysql://{db_user}:@{db_host}:{db_port}/portafolio"
 
 
 engine = create_engine(URL_DB)

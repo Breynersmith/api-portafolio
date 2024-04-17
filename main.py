@@ -7,7 +7,6 @@ from sqlalchemy.orm import Session
 import os
 import uvicorn
 
-
 app = FastAPI()
 
 class Proyecto(BaseModel):
