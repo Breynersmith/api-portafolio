@@ -1,8 +1,15 @@
 {
-        "routes": [
+        "version": 2,
+        "builds": [
           {
-            "src": "/(.*)",
-            "dest": "main.py"
+            "src": "main.py",
+            "use": "@vercel/python",
+            "config": { "maxLambdaSize": "15mb" }
           }
+        ],
+        "routes": [
+          { "handle": "filesystem" },
+          { "src": "/.*", "dest": "main.py" }
         ]
       }
+      
