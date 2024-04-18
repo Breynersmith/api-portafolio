@@ -7,7 +7,7 @@ db_user = os.getenv("DB_USER")
 db_host = os.getenv("DB_HOST")
 db_port = os.getenv("DB_PORT")
 
-URL_DB = f"mysql+pymysql://root:@localhost:3306/portafolio"
+URL_DB = f"mysql+pymysql://root:@api-breyner-mvskuwhgo-breyner.vercel.app:3306/portafolio"
 
 
 engine = create_engine(URL_DB, pool_pre_ping=True)
